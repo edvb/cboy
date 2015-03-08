@@ -85,8 +85,10 @@ int holding_y(Ent e, int val) {
 void draw_ent(Ent e, Ent oe, int r) {
 	if (isalive(e.hp)) {
 		for (int j = 0; j < MAX_Y; j++)
-		if (e.type == ENT_PLAYER)
+		if (e.type == ENT_PLAYER) {
 			mvprintw(e.bary, 0, "HP: %d", e.hp);
+			printw(" Hold: %d", e.hold);
+		}
 		mvaddch(e.y, e.x, e.face + e.color);
 		if (e.holding[e.hold].face != ' ')
 			mvaddch(holding_y(e, e.y), holding_x(e, e.x),

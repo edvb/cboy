@@ -16,10 +16,10 @@
 #define MAX_X 80
 #define MAX_Y 24
 #define MAX_NAME 16
-#define MAX_HOLDING 8
 #define MAX_ITEMS 256
 #define MAX_ENTITIES 256
 #define MAX_PLAYERS 8
+#define MAX_HOLDING 8
 
 typedef enum {
 	LEFT,
@@ -41,7 +41,8 @@ typedef enum {
 	ENT_PEACEFUL
 } ENT_TYPE;
 
-typedef struct {
+typedef struct _Item Item;
+struct _Item {
 	char *name;
 	ITEM_TYPE type;
 	int map[MAX_Y][MAX_X];
@@ -49,7 +50,7 @@ typedef struct {
 	int color;
 
 	int stat;
-} Item;
+};
 
 typedef struct _Ent Ent;
 struct _Ent {
@@ -65,7 +66,7 @@ struct _Ent {
 
 	int maxhp, hp;
 	bool isdead;
-	Item holding[8];
+	struct _Item holding[MAX_HOLDING];
 	int hold;
 	int damage;
 };

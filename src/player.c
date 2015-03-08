@@ -5,6 +5,21 @@
 #include "cboy.h"
 #include "../config.h"
 
+static void player_get_item(Ent *e) {
+	for (int i = 0; i <= itemqty; i++)
+		if (item[i].map[e->y][e->x] > 0) {
+			for (int j = 1; j <= MAX_HOLDING; j++)
+				if (e->holding[j].face == ' ') {
+					e->holding[j] = item[i];
+					clear_item(&item[i], e->x, e->y);
+					return;
+				}
+		}
+	e->hold++;
+	if (e->hold == MAX_HOLDING)
+		e->hold = 0;
+}
+
 void player_run(int c, Ent *e) {
 	if (isalive(e->hp)) {
 
@@ -26,6 +41,7 @@ void player_run(int c, Ent *e) {
 				e->direc = RIGHT;
 				break;
 			case CBOY_STAND: break;
+			case CBOY_GET: player_get_item(e); break;
 			case CBOY_OPEN: toggle_door(e->x, e->y); break;
 		}
 
