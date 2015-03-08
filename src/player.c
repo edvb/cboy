@@ -32,6 +32,7 @@ static void player_get(Ent *e) {
 					return;
 				} else if (e->holding[j].face == item[i].face) {
 					e->holding[j].map[0][0]++;
+					clear_item(&item[i], e->x, e->y);
 					return;
 				}
 	e->hold++;
@@ -64,6 +65,9 @@ void player_run(int c, Ent *e) {
 			case CBOY_GET: player_get(e); break;
 			case CBOY_OPEN: toggle_door(e->x, e->y); break;
 		}
+
+		if (e->hp > e->maxhp)
+			e->hp = e->maxhp;
 
 	}
 }

@@ -87,7 +87,7 @@ void draw_ent(Ent e, Ent oe, int r) {
 		for (int j = 0; j < MAX_Y; j++)
 		if (e.type == ENT_PLAYER) {
 			mvprintw(e.bary, 0, "HP: %d", e.hp);
-			printw(" Hold: %d", e.hold);
+			printw(" Qty: %d", e.holding[e.hold].map[0][0]);
 		}
 		mvaddch(e.y, e.x, e.face + e.color);
 		if (e.holding[e.hold].map[0][0] > 0)
