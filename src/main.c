@@ -14,20 +14,18 @@ static const struct option longopts[] = {
 
 static void print_help(void) {
 	printf("\
-Usage: ratium [OPTION]\n\
-A dumb little ncurses game where you player as a '@' and have to kill rats\n\
+Usage: cboy [OPTION]\n\
+A Small Wild West Themed ASCII Game\n\
 \n\
   -h    display this help and exit\n\
   -v    display version information and exit\n\
 \n\
-For more info see man page\n\
-\n\
-ratium home page: <https://github.com/edvb54/ratium-c>\n\
+cboy home page: <https://github.com/edvb54/cboy>\n\
 ");
 }
 
 static void print_version(void) {
-	printf("ratium v%s\n", VERSION);
+	printf("cboy %s\n", VERSION);
 }
 
 int main(int argc, char *argv[]) {
@@ -42,8 +40,8 @@ int main(int argc, char *argv[]) {
 				print_version();
 				return 0;
 			default:
-				printf("ratium: error: option not supported\n");
-				printf("for help run \"ratium -h\"\n");
+				printf("cboy: error: option not supported\n");
+				printf("for help run \"cboy -h\"\n");
 				return 1;
 		}
 
@@ -92,7 +90,7 @@ int main(int argc, char *argv[]) {
 
 	if (maxx < 80 || maxy < 24) {
 		endwin();
-		printf("ratium: error: terminal too small\n");
+		printf("cboy: error: terminal too small\n");
 		return 1;
 	}
 
