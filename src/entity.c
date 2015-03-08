@@ -90,7 +90,7 @@ void draw_ent(Ent e, Ent oe, int r) {
 			printw(" Hold: %d", e.hold);
 		}
 		mvaddch(e.y, e.x, e.face + e.color);
-		if (e.holding[e.hold].face != ' ')
+		if (e.holding[e.hold].map[0][0] > 0)
 			mvaddch(holding_y(e, e.y), holding_x(e, e.x),
 				e.holding[e.hold].face + e.holding[e.hold].color);
 	}

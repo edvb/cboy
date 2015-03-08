@@ -24,7 +24,7 @@
 #  define CBOY_STAND '5'
 #endif
 
+#define CBOY_USE  'f'
 #define CBOY_GET  'g'
-#define CBOY_INV  'i'
 #define CBOY_DROP 'd'
 #define CBOY_OPEN 'o'
