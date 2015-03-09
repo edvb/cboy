@@ -13,6 +13,8 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == i && entity[j].y == y_0)
 					entity[j].hp -= dmg;
+			if (!is_floor(i, y_0))
+				return;
 			mvaddch(y_0, i, 'x' + RED);
 		}
 		break;
@@ -21,6 +23,8 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == x_0 && entity[j].y == i)
 					entity[j].hp -= dmg;
+			if (!is_floor(x_0, i))
+				return;
 			mvaddch(i, x_0, 'x' + RED);
 		}
 		break;
@@ -29,6 +33,8 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == x_0 && entity[j].y == i)
 					entity[j].hp -= dmg;
+			if (!is_floor(x_0, i))
+				return;
 			mvaddch(i, x_0, 'x' + RED);
 		}
 		break;
@@ -37,6 +43,8 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == i && entity[j].y == y_0)
 					entity[j].hp -= dmg;
+			if (!is_floor(i, y_0))
+				return;
 			mvaddch(y_0, i, 'x' + RED);
 		}
 		break;

@@ -112,9 +112,9 @@ int main(int argc, char *argv[]) {
 		player_run(c, &player[0]);
 		for (int i = 0; i < entqty; i++)
 			/* TODO: Make this not suck */
-			/* if (strcmp(entity[i].name, "cow")) */
-			/* 	dumb_ai(&entity[i], player[0].x, player[0].y, 8); */
-			/* else */
+			if (strcmp(entity[i].name, "cow"))
+				dumb_ai(&entity[i], player[0].x, player[0].y, 8);
+			else
 				rand_ai(&entity[i], 8);
 
 		/* TODO: Add player sight */
