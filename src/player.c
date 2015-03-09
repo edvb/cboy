@@ -81,6 +81,7 @@ player_get(Ent *e) {
 
 static void
 player_use(Ent *e) {
+	int dmg;
 	if (e->holding[e->hold].map[0][0] > 0)
 		switch(e->holding[e->hold].type) {
 		case ITEM_MISC:
@@ -93,8 +94,15 @@ player_use(Ent *e) {
 			break;
 		case ITEM_GUN:
 			for (int i = 0; i <= MAX_HOLDING; i++)
-				if (e->holding[i].type == ITEM_AMMO)
-					fire_gun(e->direc, e->x, e->y, 10, 20);
+				if (e->holding[i].map[0][0] > 0 &&
+				    e->holding[i].type == ITEM_AMMO) {
+					if (rand()%2 == 0)
+						dmg = e->holding[i].stat + rand()%3;
+					else
+						dmg = e->holding[i].stat - rand()%5;
+					fire_gun(e->direc, e->x, e->y,
+						 15, dmg);
+				}
 			break;
 		}
 }

@@ -4,30 +4,30 @@
 #include "cboy.h"
 
 static char worldMap[MAX_Y][MAX_X+1] = {
-"ggggggggggggggggggggggggggggggggwwwwwwwwgggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggggwwwwwwwwgggggggggggggggggggggXXXXXXXXXXXXXXggggg",
-"ggggXXXXXXXXXXXXgggggg00gggggggggwwwwwwwwggggggXXXXXXXXXXggggX............Xggggg",
-"ggggX..........Xgggggg0ggggggggggwwwwwwwwggggggX........XggggX............Xggggg",
-"ggggX..........XgggggggggggggggggwwwwwwwwggggggX=======+XggggX............Xggggg",
-"ggggX..........XgggggggggggggggggwwwwwwwwggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
-"ggggXXXXXXXXX+XXggggggggggggggggwwwwwwwwwggggggXh.......Xgggg..............ggggg",
-"gggggggggggggggggggg0ggggggggggwwwwwwwwwgggggggXo.......XggggX............Xggggg",
-"ggggggggggggggggggg00ggggggggggwwwwwwwwggggggggXh.....hoXggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggwwwwwwwwwggggggggXXX+XXXXXXggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggwwwwwwwwwggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggXXXXXXXXXXXXXXggggg",
+"ggggXXXXXXXXXXXXgggggg00ggggggggg~~~~~~~~ggggggXXXXXXXXXXggggX............Xggggg",
+"ggggX..........Xgggggg0gggggggggg~~~~~~~~ggggggX........XggggX............Xggggg",
+"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX=======+XggggX............Xggggg",
+"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
+"ggggXXXXXXXXX+XXgggggggggggggggg~~~~~~~~~ggggggXh.......Xgggg..............ggggg",
+"gggggggggggggggggggg0gggggggggg~~~~~~~~~gggggggXo.......XggggX............Xggggg",
+"ggggggggggggggggggg00gggggggggg~~~~~~~~ggggggggXh.....hoXggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggXXX+XXXXXXggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 "ggggggg0ggg0ggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
 "gggg0ggggggggg0gggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
-"ggggggggggggggggggggggggggg.XXXXXXXXXXX.ggggggggggggggggggggggggggggggg#w#gggggg",
-"ggggggg0ggg0gggggggggggggggXXwwwwwwwggXXgggggggggggggggggggggggggggggggg#ggggggg",
-"gggggggggggggggggggggggggggggwwwwwwwgggggggggggggggg0ggggggggggggggggggggggggggg",
-"gggggggggggggg0ggggggggggggggwwwwwwwggggggggwwggggggggggg0gggggggg00gggggggggggg",
-"#ggggggggggggg00gggggggggggggwwwwwwwwggggggwwwwwgggggggg000ggggggggggggggggggggg",
-"###ggggggggggggggggg0ggggggggwwwwwwwwwwggggwwwwwwwgggggg00gggg0ggggggggggggggggg",
-"######ggggggggggggg00gggggggggwwwwwwwwwwwwwwwwwwwwgggggggggggg0gggg00ggggggggggg",
-"###########gggggggggggggggggggwwwwwwwwggwwwwwwwwwwwggg0gggggggggggggggggg0gggggg",
-"###############gggggggggggggggwwwwwwwwwggggggwwwwwggggggggggggggggggggggg0gggggg",
-"################ggggggggggggggwwwwwwwwwggggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggg.XXXXXXXXXXX.ggggggggggggggggggggggggggggggg#~#gggggg",
+"ggggggg0ggg0gggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggg#ggggggg",
+"ggggggggggggggggggggggggggggg~~~~~~~gggggggggggggggg0ggggggggggggggggggggggggggg",
+"gggggggggggggg0gggggggggggggg~~~~~~~gggggggg~~ggggggggggg0gggggggg00gggggggggggg",
+"#ggggggggggggg00ggggggggggggg~~~~~~~~gggggg~~~~~gggggggg000ggggggggggggggggggggg",
+"###ggggggggggggggggg0gggggggg~~~~~~~~~~gggg~~~~~~~gggggg00gggg0ggggggggggggggggg",
+"######ggggggggggggg00ggggggggg~~~~~~~~~~~~~~~~~~~~gggggggggggg0gggg00ggggggggggg",
+"###########ggggggggggggggggggg~~~~~~~~gg~~~~~~~~~~~ggg0gggggggggggggggggg0gggggg",
+"###############ggggggggggggggg~~~~~~~~~gggggg~~~~~ggggggggggggggggggggggg0gggggg",
+"################gggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 };
 
 static int maprand[MAX_Y][MAX_X+1];
@@ -60,7 +60,7 @@ bool is_floor(int x, int y) {
 		case '#': return false;
 		case 'X': return false;
 		case '=': return false;
-		case 'w': return false;
+		case '~': return false;
 		case '+': return false;
 		case 'o': return false;
 		case '0': return false;
@@ -130,7 +130,7 @@ void draw_map_floor(Ent e, int r) {
 					(maprand[j][i] == 0)
 					? ACS_BULLET : ':');
 				attroff(YELLOW);
-			} else if (worldMap[j][i] == 'w')
+			} else if (worldMap[j][i] == '~')
 				mvaddch(j, i, '~' + WATER);
 			else if (worldMap[j][i] == 'h')
 				mvaddch(j, i, 'h' + BROWN);
