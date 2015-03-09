@@ -6,27 +6,27 @@
 static char worldMap[MAX_Y][MAX_X+1] = {
 "ggggggggggggggggggggggggggggggggwwwwwwwwgggggggggggggggggggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggggggwwwwwwwwgggggggggggggggggggggXXXXXXXXXXXXXXggggg",
-"ggggXXXXXXXXXXXXgggggggggggggggggwwwwwwwwggggggXXXXXXXXXXggggX............Xggggg",
-"ggggX..........XgggggggggggggggggwwwwwwwwggggggX........XggggX............Xggggg",
+"ggggXXXXXXXXXXXXgggggg00gggggggggwwwwwwwwggggggXXXXXXXXXXggggX............Xggggg",
+"ggggX..........Xgggggg0ggggggggggwwwwwwwwggggggX........XggggX............Xggggg",
 "ggggX..........XgggggggggggggggggwwwwwwwwggggggXXXXXXXX+XggggX............Xggggg",
 "ggggX..........XgggggggggggggggggwwwwwwwwggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
 "ggggXXXXXXXXX+XXggggggggggggggggwwwwwwwwwggggggXh.......Xgggg..............ggggg",
-"gggggggggggggggggggggggggggggggwwwwwwwwwgggggggXo.......XggggX............Xggggg",
-"gggggggggggggggggggggggggggggggwwwwwwwwggggggggXh.....hoXggggggggggggggggggggggg",
+"gggggggggggggggggggg0ggggggggggwwwwwwwwwgggggggXo.......XggggX............Xggggg",
+"ggggggggggggggggggg00ggggggggggwwwwwwwwggggggggXh.....hoXggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggggwwwwwwwwwggggggggXXX+XXXXXXggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggggwwwwwwwwwggggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
+"ggggggg0ggg0ggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
+"gggg0ggggggggg0gggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
 "ggggggggggggggggggggggggggg.XXXXXXXXXXX.ggggggggggggggggggggggggggggggg#w#gggggg",
-"gggggggggggggggggggggggggggXXwwwwwwwggXXgggggggggggggggggggggggggggggggg#ggggggg",
-"gggggggggggggggggggggggggggggwwwwwwwgggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggwwwwwwwggggggggwwgggggggggggggggggggggggggggggggggg",
-"#ggggggggggggggggggggggggggggwwwwwwwwggggggwwwwwgggggggggggggggggggggggggggggggg",
-"###ggggggggggggggggggggggggggwwwwwwwwwwggggwwwwwwwgggggggggggggggggggggggggggggg",
-"######ggggggggggggggggggggggggwwwwwwwwwwwwwwwwwwwwgggggggggggggggggggggggggggggg",
-"###########gggggggggggggggggggwwwwwwwwggwwwwwwwwwwwggggggggggggggggggggggggggggg",
-"###############gggggggggggggggwwwwwwwwwggggggwwwwwgggggggggggggggggggggggggggggg",
+"ggggggg0ggg0gggggggggggggggXXwwwwwwwggXXgggggggggggggggggggggggggggggggg#ggggggg",
+"gggggggggggggggggggggggggggggwwwwwwwgggggggggggggggg0ggggggggggggggggggggggggggg",
+"gggggggggggggg0ggggggggggggggwwwwwwwggggggggwwggggggggggg0gggggggg00gggggggggggg",
+"#ggggggggggggg00gggggggggggggwwwwwwwwggggggwwwwwgggggggg000ggggggggggggggggggggg",
+"###ggggggggggggggggg0ggggggggwwwwwwwwwwggggwwwwwwwgggggg00gggg0ggggggggggggggggg",
+"######ggggggggggggg00gggggggggwwwwwwwwwwwwwwwwwwwwgggggggggggg0gggg00ggggggggggg",
+"###########gggggggggggggggggggwwwwwwwwggwwwwwwwwwwwggg0gggggggggggggggggg0gggggg",
+"###############gggggggggggggggwwwwwwwwwggggggwwwwwggggggggggggggggggggggg0gggggg",
 "################ggggggggggggggwwwwwwwwwggggggggggggggggggggggggggggggggggggggggg",
 };
 
@@ -62,6 +62,7 @@ bool is_floor(int x, int y) {
 		case 'w': return false;
 		case '+': return false;
 		case 'o': return false;
+		case '0': return false;
 		default: return true;
 	}
 }
@@ -99,9 +100,11 @@ void draw_map(Ent e, int r) {
 			else if (worldMap[j][i] == 'X')
 				mvaddch(j, i, 'X' + COLOR_PAIR(13));
 			else if (worldMap[j][i] == '+')
-				mvaddch(j, i, '+' + BROWN);
+				mvaddch(j, i, '+' + COLOR_PAIR(13));
 			else if (worldMap[j][i] == 'o')
 				mvaddch(j, i, 'o' + BROWN);
+			else if (worldMap[j][i] == '0')
+				mvaddch(j, i, '0' + BROWN);
 }
 
 /* draw_map: draw the map background (stuff that is below entities) */
