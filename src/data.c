@@ -53,9 +53,11 @@ void init_item(int from, int to) {
 				item[num].map[j][i] = 0;
 
 		if (rarity != 0)
-			/* for (int x, y, i = 0; i < floor_count('.')/rarity; i++) { */
-			calc_rarity(&rarity);
-			for (int x, y, i = itemqty; i < rarity; i++, itemqty++) {
+			if (rand() % 2 == 0)
+				rarity += rand() % 5;
+			else
+				rarity -= rand() % 5;
+			for (int x, y, i = 0; i < rarity; i++, itemqty++) {
 				do {
 					x = rand() % MAX_X;
 					y = rand() % MAX_Y;
