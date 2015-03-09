@@ -8,7 +8,7 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 "ggggggggggggggggggggggggggggggggwwwwwwwwgggggggggggggggggggggXXXXXXXXXXXXXXggggg",
 "ggggXXXXXXXXXXXXgggggg00gggggggggwwwwwwwwggggggXXXXXXXXXXggggX............Xggggg",
 "ggggX..........Xgggggg0ggggggggggwwwwwwwwggggggX........XggggX............Xggggg",
-"ggggX..........XgggggggggggggggggwwwwwwwwggggggXXXXXXXX+XggggX............Xggggg",
+"ggggX..........XgggggggggggggggggwwwwwwwwggggggX=======+XggggX............Xggggg",
 "ggggX..........XgggggggggggggggggwwwwwwwwggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
 "ggggXXXXXXXXX+XXggggggggggggggggwwwwwwwwwggggggXh.......Xgggg..............ggggg",
 "gggggggggggggggggggg0ggggggggggwwwwwwwwwgggggggXo.......XggggX............Xggggg",
@@ -59,6 +59,7 @@ bool is_floor(int x, int y) {
 	switch (get_map(x, y)) {
 		case '#': return false;
 		case 'X': return false;
+		case '=': return false;
 		case 'w': return false;
 		case '+': return false;
 		case 'o': return false;
@@ -88,6 +89,8 @@ void toggle_door(int x, int y) {
 	else if (get_map(x+1, y) == '-') set_map(x+1, y, '+');
 	else if (get_map(x, y-1) == '-') set_map(x, y-1, '+');
 	else if (get_map(x, y+1) == '-') set_map(x, y+1, '+');
+	for (int i = 0; i <= playerqty; i++)
+		draw_map_floor(player[i], 10);
 }
 
 /* TODO: Use get_map function */
@@ -99,6 +102,8 @@ void draw_map(Ent e, int r) {
 				mvaddch(j, i, '#' + COLOR_PAIR(12));
 			else if (worldMap[j][i] == 'X')
 				mvaddch(j, i, 'X' + COLOR_PAIR(13));
+			else if (worldMap[j][i] == '=')
+				mvaddch(j, i, '=' + COLOR_PAIR(13));
 			else if (worldMap[j][i] == '+')
 				mvaddch(j, i, '+' + COLOR_PAIR(13));
 			else if (worldMap[j][i] == 'o')
@@ -120,11 +125,11 @@ void draw_map_floor(Ent e, int r) {
 					? ACS_BULLET : ':');
 				attroff(COLOR_PAIR(5));
 			} else if (worldMap[j][i] == 'g') {
-				attron(GRASS);
+				attron(YELLOW);
 				mvaddch(j, i,
 					(maprand[j][i] == 0)
-					? ACS_BULLET : '*');
-				attroff(GRASS);
+					? ACS_BULLET : ':');
+				attroff(YELLOW);
 			} else if (worldMap[j][i] == 'w')
 				mvaddch(j, i, '~' + WATER);
 			else if (worldMap[j][i] == 'h')

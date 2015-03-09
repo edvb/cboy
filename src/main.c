@@ -107,17 +107,18 @@ int main(int argc, char *argv[]) {
 
 		clear();
 
+		for (int i = 0; i <= playerqty; i++)
+			draw_map_floor(player[i], 10);
 		player_run(c, &player[0]);
 		for (int i = 0; i < entqty; i++)
 			/* TODO: Make this not suck */
-			if (strcmp(entity[i].name, "cow"))
-				dumb_ai(&entity[i], player[0].x, player[0].y, 8);
-			else
+			/* if (strcmp(entity[i].name, "cow")) */
+			/* 	dumb_ai(&entity[i], player[0].x, player[0].y, 8); */
+			/* else */
 				rand_ai(&entity[i], 8);
 
 		/* TODO: Add player sight */
 		for (int i = 0; i <= playerqty; i++) {
-			draw_map_floor(player[i], 10);
 			for (int j = 0; j <= itemqty; j++)
 				draw_item(item[j], player[i], 10);
 			for (int j = 0; j <= entqty; j++)

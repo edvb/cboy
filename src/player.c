@@ -9,28 +9,36 @@ static void
 fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 	switch (direc) {
 	case LEFT:
-		for (int i = x_0; i > x_0-range; i--)
+		for (int i = x_0; i > x_0-range; i--) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == i && entity[j].y == y_0)
 					entity[j].hp -= dmg;
+			mvaddch(y_0, i, 'x' + RED);
+		}
 		break;
 	case DOWN:
-		for (int i = y_0; i < y_0+range; i++)
+		for (int i = y_0; i < y_0+range; i++) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == x_0 && entity[j].y == i)
 					entity[j].hp -= dmg;
+			mvaddch(i, x_0, 'x' + RED);
+		}
 		break;
 	case UP:
-		for (int i = y_0; i > y_0-range; i--)
+		for (int i = y_0; i > y_0-range; i--) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == x_0 && entity[j].y == i)
 					entity[j].hp -= dmg;
+			mvaddch(i, x_0, 'x' + RED);
+		}
 		break;
 	case RIGHT:
-		for (int i = x_0; i < x_0+range; i++)
+		for (int i = x_0; i < x_0+range; i++) {
 			for (int j = 0; j <= entqty; j++)
 				if (entity[j].x == i && entity[j].y == y_0)
 					entity[j].hp -= dmg;
+			mvaddch(y_0, i, 'x' + RED);
+		}
 		break;
 	}
 }
