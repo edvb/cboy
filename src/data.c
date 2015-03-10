@@ -54,9 +54,9 @@ void init_item(int from, int to) {
 
 		if (rarity != 0)
 			if (rand() % 2 == 0)
-				rarity += rand() % 5;
+				rarity += rand() % 3;
 			else
-				rarity -= rand() % 5;
+				rarity -= rand() % 3;
 			for (int x, y, i = 0; i < rarity; i++, itemqty++) {
 				do {
 					x = rand() % MAX_X;
@@ -114,7 +114,11 @@ void init_entity(void) {
 		}
 
 		if (rarity != 0) {
-			calc_rarity(&rarity);
+			/* calc_rarity(&rarity); */
+			if (rand() % 2 == 0)
+				rarity += rand() % 3;
+			else
+				rarity -= rand() % 3;
 			for (int num = entqty; num < rarity; num++, entqty++) {
 				entity[num].name = malloc(MAX_NAME * sizeof(char));
 				strcpy(entity[num].name, name);
