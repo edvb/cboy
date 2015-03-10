@@ -52,6 +52,20 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 }
 
 static void
+load_gun(Ent *e) {
+	if (e->holding[e->hold].type == ITEM_GUN)
+		for (int i = 0; i <= MAX_HOLDING; i++)
+			if (e->holding[i].map[0][0] > 0 &&
+			    e->holding[i].type == ITEM_AMMO) {
+				e->holding[i].map[0][0]--;
+				e->holding[e->hold].face = ']';
+				/* TODO: Dont make this hard coded */
+				e->holding[e->hold].stat = 6;
+				return;
+			}
+}
+
+static void
 player_drop(Ent *e) {
 	if (e->holding[e->hold].map[0][0] > 0) {
 		e->holding[e->hold].map[0][0]--;
@@ -85,24 +99,25 @@ player_use(Ent *e) {
 	if (e->holding[e->hold].map[0][0] > 0)
 		switch(e->holding[e->hold].type) {
 		case ITEM_MISC:
+		case ITEM_KNIFE:
+		case ITEM_AMMO:
 			break;
 		case ITEM_FOOD:
 			e->hp += e->holding[e->hold].stat;
 			e->holding[e->hold].map[0][0]--;
 			break;
-		case ITEM_AMMO:
-			break;
 		case ITEM_GUN:
-			for (int i = 0; i <= MAX_HOLDING; i++)
-				if (e->holding[i].map[0][0] > 0 &&
-				    e->holding[i].type == ITEM_AMMO) {
-					if (rand()%2 == 0)
-						dmg = e->holding[i].stat + rand()%3;
-					else
-						dmg = e->holding[i].stat - rand()%5;
-					fire_gun(e->direc, e->x, e->y,
-						 15, dmg);
-				}
+			if (e->holding[e->hold].face == ']') {
+				if (rand()%2 == 0)
+					dmg = e->holding[query_item("ammo")].stat + rand()%3;
+				else
+					dmg = e->holding[query_item("ammo")].stat - rand()%5;
+				fire_gun(e->direc, e->x, e->y,
+					 15, dmg);
+				e->holding[e->hold].stat--;
+				if (e->holding[e->hold].stat <= 0)
+					e->holding[e->hold].face = ')';
+			}
 			break;
 		}
 }
@@ -131,6 +146,7 @@ player_run(int c, Ent *e) {
 			case CBOY_STAND: break;
 			case CBOY_DROP: player_drop(e); break;
 			case CBOY_GET: player_get(e); break;
+			case CBOY_LOAD: load_gun(e); break;
 			case CBOY_OPEN: toggle_door(e->x, e->y); break;
 			case CBOY_USE: player_use(e); break;
 		}

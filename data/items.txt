@@ -1,6 +1,6 @@
 gold $(4): type=0 stat=0 rarity=1
 ammo *(6): type=3 stat=4 rarity=10
-revolver )(6): type=4 stat=2 rarity=5
+revolver )(6): type=4 stat=6 rarity=5
 knife /(6): type=2 stat=4 rarity=5
 haggis o(11): type=1 stat=1 rarity=1
 beef %(5): type=1 stat=2 rarity=0
