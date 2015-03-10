@@ -45,12 +45,12 @@ void attack(Ent *e, Ent *foe) {
 }
 
 void take_damage(Ent *e, int damage) {
-			e->hp -= damage;
+	e->hp -= damage;
 }
 
 int deal_damage(Ent *e) {
 	switch (e->holding[e->hold].type) {
-		case ITEM_GUN:
+		case ITEM_KNIFE:
 			return e->damage + e->holding[e->hold].stat;
 			break;
 		default:
