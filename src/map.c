@@ -33,21 +33,25 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 static int maprand[MAX_Y][MAX_X+1];
 
 static void init_wells(int count) {
+	int len = 3, height = 3;
+	const char well[3][3] = {
+	" # ",
+	"#~#",
+	" # ",
+	};
 	int x_0, y_0;
 
 	if (rand() % 2 == 0)
 		count += rand() % 2;
-	for (int i = 0; i <= count; i++) {
+	for (int num = 0; num <= count; num++) {
 		do {
 			x_0 = rand() % MAX_X;
 			y_0 = rand() % MAX_Y;
-		} while (!is_floor_range(x_0, y_0, 8, 8));
-		/* TODO: Make this a for loop and 2D array */
-		set_map(x_0+1, y_0+1, '~');
-		set_map(x_0+1, y_0, '#');
-		set_map(x_0, y_0+1, '#');
-		set_map(x_0+2, y_0+1, '#');
-		set_map(x_0+1, y_0+2, '#');
+		} while (!is_floor_range(x_0, y_0, len+2, height+2));
+		for (int i = 0; i < len; i++)
+			for (int j = 0; j < height; j++)
+				if (well[j][i] != ' ')
+					set_map(i+x_0, j+y_0, well[j][i]);
 	}
 }
 
