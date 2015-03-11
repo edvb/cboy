@@ -114,7 +114,6 @@ void init_entity(void) {
 		}
 
 		if (rarity != 0) {
-			/* calc_rarity(&rarity); */
 			if (rand() % 2 == 0)
 				rarity += rand() % 3;
 			else

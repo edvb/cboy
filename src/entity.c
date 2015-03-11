@@ -58,6 +58,17 @@ int deal_damage(Ent *e) {
 	}
 }
 
+bool be_hostile(Ent e) {
+	switch (e.holding[e.hold].type) {
+	case ITEM_GUN:
+	case ITEM_KNIFE:
+		if (e.holding[e.hold].map[0][0] > 0)
+			return true;
+	default:
+		return false;
+	}
+}
+
 /* isalive: determine if entity is alive */
 bool isalive(int hp) {
 	return (hp > 0) ? true : false;
@@ -96,27 +107,18 @@ void draw_ent(Ent e, Ent oe, int r) {
 	}
 }
 
-/* TODO: Move to ai.c file */
-/* TODO: Fix Speed */
-void rand_ai(Ent *e, int speed) {
+void
+hostile_ai(Ent *e, int xNew, int yNew, bool topos, int speed) {
 	if (isalive(e->hp)) {
-
-		int direc = rand() % speed;
-
-		switch (direc) {
-			case 0: move_entity(e, -1,  0); break;
-			case 1: move_entity(e,  0,  1); break;
-			case 2: move_entity(e,  0, -1); break;
-			case 3: move_entity(e,  1,  0); break;
-		}
-
-	} else if (!e->isdead) {
-		e->isdead = true;
-		add_item(&item[query_item(e->drop)], e->x, e->y);
+		if (topos)
+			angry_ai(e, xNew, yNew, speed);
+		else
+			rand_ai(e, speed);
 	}
 }
 
-void dumb_ai(Ent *e, int xNew, int yNew, int speed) {
+void
+angry_ai(Ent *e, int xNew, int yNew, int speed) {
 	if (isalive(e->hp)) {
 
 		int shouldMove = rand() % speed;
@@ -130,6 +132,27 @@ void dumb_ai(Ent *e, int xNew, int yNew, int speed) {
 				move_entity(e, 0, 1);
 			else if (yNew < e->y)
 				move_entity(e, 0, -1);
+		}
+
+	} else if (!e->isdead) {
+		e->isdead = true;
+		add_item(&item[query_item(e->drop)], e->x, e->y);
+	}
+}
+
+/* TODO: Move to ai.c file */
+/* TODO: Fix Speed */
+void
+rand_ai(Ent *e, int speed) {
+	if (isalive(e->hp)) {
+
+		int direc = rand() % speed;
+
+		switch (direc) {
+			case 0: move_entity(e, -1,  0); break;
+			case 1: move_entity(e,  0,  1); break;
+			case 2: move_entity(e,  0, -1); break;
+			case 3: move_entity(e,  1,  0); break;
 		}
 
 	} else if (!e->isdead) {

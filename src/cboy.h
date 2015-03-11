@@ -39,6 +39,7 @@ typedef enum {
 typedef enum {
 	ENT_PLAYER,
 	ENT_HOSTILE,
+	ENT_ANGRY,
 	ENT_PEACEFUL
 } ENT_TYPE;
 
@@ -100,14 +101,16 @@ void draw_item(Item item, Ent e, int r);
 bool can_step(Ent *e, int x, int y);
 void move_entity(Ent *e, int x_0, int y_0);
 void attack(Ent *e, Ent *foe);
-int  deal_damage(Ent *e);
 void take_damage(Ent *e, int damge);
+int  deal_damage(Ent *e);
+bool be_hostile(Ent e);
 bool isalive(int hp);
 int  holding_x(Ent e, int val);
 int  holding_y(Ent e, int val);
 void draw_ent(Ent e, Ent oe, int r);
+void hostile_ai(Ent *e, int xNew, int yNew, bool topos, int speed);
+void angry_ai(Ent *e, int xNew, int yNew, int speed);
 void rand_ai(Ent *e, int speed);
-void dumb_ai(Ent *e, int xNew, int yNew, int speed);
 
 /*****************************\
 * player.c: handle the player *
