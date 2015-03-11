@@ -17,9 +17,9 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 "gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
-"ggggggggggggggggggggggggggg.XXXXXXXXXXX.ggggggggggggggggggggggggggggggg#~#gggggg",
-"gggggggggggggggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggg#ggggggg",
+"ggggggggggggggggggggggggggg.............gggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggg.XXXXXXXXXXX.gggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggg~~~~~~~gggggggggggggggggggggggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggg~~~~~~~gggggggg~~gggggggggggggggggggggggggggggggggg",
 "#gggggggggggggggggggggggggggg~~~~~~~~gggggg~~~~~gggggggggggggggggggggggggggggggg",
@@ -31,6 +31,25 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 };
 
 static int maprand[MAX_Y][MAX_X+1];
+
+static void init_wells(int count) {
+	int x_0, y_0;
+
+	if (rand() % 2 == 0)
+		count += rand() % 2;
+	for (int i = 0; i <= count; i++) {
+		do {
+			x_0 = rand() % MAX_X;
+			y_0 = rand() % MAX_Y;
+		} while (!is_floor_range(x_0, y_0, 8, 8));
+		/* TODO: Make this a for loop and 2D array */
+		set_map(x_0+1, y_0+1, '~');
+		set_map(x_0+1, y_0, '#');
+		set_map(x_0, y_0+1, '#');
+		set_map(x_0+2, y_0+1, '#');
+		set_map(x_0+1, y_0+2, '#');
+	}
+}
 
 static void init_barrels(int count) {
 	int x_0, y_0;
@@ -69,6 +88,7 @@ static void init_barrels(int count) {
  * should be a different char */
 void init_map(void) {
 	int num;
+	init_wells(0);
 	init_barrels(4);
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++) {
