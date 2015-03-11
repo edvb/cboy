@@ -82,6 +82,7 @@ void init_map(void);
 char get_map(int x, int y);
 void set_map(int x, int y, char newch);
 bool is_floor(int x, int y);
+bool is_floor_range(int x, int y, int dx, int dy);
 int  floor_count(char ch);
 void toggle_door(int x, int y);
 void draw_map(Ent e, int r);

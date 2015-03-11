@@ -6,36 +6,70 @@
 static char worldMap[MAX_Y][MAX_X+1] = {
 "gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggXXXXXXXXXXXXXXggggg",
-"ggggXXXXXXXXXXXXgggggg00ggggggggg~~~~~~~~ggggggXXXXXXXXXXggggX............Xggggg",
-"ggggX..........Xgggggg0gggggggggg~~~~~~~~ggggggX........XggggX............Xggggg",
+"ggggXXXXXXXXXXXXggggggggggggggggg~~~~~~~~ggggggXXXXXXXXXXggggX............Xggggg",
+"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX........XggggX............Xggggg",
 "ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX=======+XggggX............Xggggg",
 "ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
 "ggggXXXXXXXXX+XXgggggggggggggggg~~~~~~~~~ggggggXh.......Xgggg..............ggggg",
-"gggggggggggggggggggg0gggggggggg~~~~~~~~~gggggggXo.......XggggX............Xggggg",
-"ggggggggggggggggggg00gggggggggg~~~~~~~~ggggggggXh.....hoXggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggg~~~~~~~~~gggggggXo.......XggggX............Xggggg",
+"ggggggggggggggggggggggggggggggg~~~~~~~~ggggggggXh.....hoXggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggXXX+XXXXXXggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
-"ggggggg0ggg0ggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
-"gggg0ggggggggg0gggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
+"ggggggggggggggggggggggggggg.............gggggggggggggggggggggggggggggggg#ggggggg",
 "ggggggggggggggggggggggggggg.XXXXXXXXXXX.ggggggggggggggggggggggggggggggg#~#gggggg",
-"ggggggg0ggg0gggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggg#ggggggg",
-"ggggggggggggggggggggggggggggg~~~~~~~gggggggggggggggg0ggggggggggggggggggggggggggg",
-"gggggggggggggg0gggggggggggggg~~~~~~~gggggggg~~ggggggggggg0gggggggg00gggggggggggg",
-"#ggggggggggggg00ggggggggggggg~~~~~~~~gggggg~~~~~gggggggg000ggggggggggggggggggggg",
-"###ggggggggggggggggg0gggggggg~~~~~~~~~~gggg~~~~~~~gggggg00gggg0ggggggggggggggggg",
-"######ggggggggggggg00ggggggggg~~~~~~~~~~~~~~~~~~~~gggggggggggg0gggg00ggggggggggg",
-"###########ggggggggggggggggggg~~~~~~~~gg~~~~~~~~~~~ggg0gggggggggggggggggg0gggggg",
-"###############ggggggggggggggg~~~~~~~~~gggggg~~~~~ggggggggggggggggggggggg0gggggg",
+"gggggggggggggggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggg#ggggggg",
+"ggggggggggggggggggggggggggggg~~~~~~~gggggggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggg~~~~~~~gggggggg~~gggggggggggggggggggggggggggggggggg",
+"#gggggggggggggggggggggggggggg~~~~~~~~gggggg~~~~~gggggggggggggggggggggggggggggggg",
+"###gggggggggggggggggggggggggg~~~~~~~~~~gggg~~~~~~~gggggggggggggggggggggggggggggg",
+"######gggggggggggggggggggggggg~~~~~~~~~~~~~~~~~~~~gggggggggggggggggggggggggggggg",
+"###########ggggggggggggggggggg~~~~~~~~gg~~~~~~~~~~~ggggggggggggggggggggggggggggg",
+"###############ggggggggggggggg~~~~~~~~~gggggg~~~~~gggggggggggggggggggggggggggggg",
 "################gggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 };
 
 static int maprand[MAX_Y][MAX_X+1];
 
-/* init_map: asign values to maprand to determine if character displayed there
+static void init_barrels(int count) {
+	int x_0, y_0;
+	int barrelqty;
+	int barrelpos;
+
+	if (rand() % 2 == 0)
+		count += rand() % 5;
+	else
+		count -= rand() % 2;
+	for (int i = 0; i <= count; i++) {
+		do {
+			x_0 = rand() % MAX_X;
+			y_0 = rand() % MAX_Y;
+		} while (!is_floor_range(x_0-1, y_0-1, 3, 3));
+		set_map(x_0, y_0, '0');
+
+		barrelqty = rand()%8;
+		for (int j = 0; j < barrelqty; j++) {
+			barrelpos = rand()%8;
+			switch (barrelpos) {
+			case 0: set_map(x_0+1, y_0, '0'); break;
+			case 1: set_map(x_0, y_0+1, '0'); break;
+			case 2: set_map(x_0+1, y_0+1, '0'); break;
+			case 3: set_map(x_0-1, y_0, '0'); break;
+			case 4: set_map(x_0, y_0-1, '0'); break;
+			case 5: set_map(x_0-1, y_0-1, '0'); break;
+			case 6: set_map(x_0+1, y_0-1, '0'); break;
+			case 7: set_map(x_0-1, y_0+1, '0'); break;
+			}
+		}
+	}
+}
+
+/* init_map: assign values to maprand to determine if character displayed there
  * should be a different char */
 void init_map(void) {
 	int num;
+	init_barrels(4);
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++) {
 			if ((num = rand() % 50) == 0)
@@ -66,6 +100,14 @@ bool is_floor(int x, int y) {
 		case '0': return false;
 		default: return true;
 	}
+}
+
+bool is_floor_range(int x, int y, int dx, int dy) {
+	for (int i = x; i <= dx+x; i++)
+		for (int j = y; j <= dy+y; j++)
+			if (get_map(i, j) != 'g')
+				return false;
+	return true;
 }
 
 int floor_count(char ch) {
