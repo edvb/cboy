@@ -111,7 +111,6 @@ int main(int argc, char *argv[]) {
 			draw_map_floor(player[i], 10);
 		player_run(c, &player[0]);
 		for (int i = 0; i < entqty; i++)
-			/* TODO: Make this not suck */
 			switch (entity[i].type) {
 			case ENT_PLAYER: break;
 			case ENT_HOSTILE:

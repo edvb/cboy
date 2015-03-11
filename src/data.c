@@ -57,6 +57,8 @@ void init_item(int from, int to) {
 				rarity += rand() % 3;
 			else
 				rarity -= rand() % 3;
+			if (rarity <= 0)
+				rarity = 1;
 			for (int x, y, i = 0; i < rarity; i++, itemqty++) {
 				do {
 					x = rand() % MAX_X;

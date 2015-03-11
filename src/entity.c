@@ -114,6 +114,9 @@ hostile_ai(Ent *e, int xNew, int yNew, bool topos, int speed) {
 			angry_ai(e, xNew, yNew, speed);
 		else
 			rand_ai(e, speed);
+	} else if (!e->isdead) {
+		e->isdead = true;
+		add_item(&item[query_item(e->drop)], e->x, e->y);
 	}
 }
 
