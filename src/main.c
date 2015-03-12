@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 
 	init_item(0, 6);
 
-	for ever {
+	do {
 
 		clear();
 
@@ -139,7 +139,16 @@ int main(int argc, char *argv[]) {
 
 		c = getch();
 
-	}
+	} while (c != 'q');
+
+	endwin();
+	printf("GAME OVER\n");
+
+	for (int i = 0; i <= playerqty; i++)
+		for (int j = 0; j < MAX_HOLDING; j++)
+			if (player[i].holding[j].face == '$')
+				printf("%s's Score: %d\n",
+				       player[i].name, player[i].holding[j].map[0][0]);
 
 	for (int i = 0; i <= itemqty; i++)
 		free(item[i].name);
@@ -153,9 +162,6 @@ int main(int argc, char *argv[]) {
 			free(entity[i].holding[i].name);
 		free(entity[i].name);
 	}
-
-	endwin();
-	printf("GAME OVER\n");
 
 	return 0;
 }
