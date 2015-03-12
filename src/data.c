@@ -140,8 +140,21 @@ void init_entity(void) {
 					entity[num].holding[i].color = 0;
 					entity[num].holding[i].type = 0;
 					entity[num].holding[i].stat = 0;
+					entity[num].holding[i].map[0][0] = 0;
 				}
 				entity[num].hold = 0;
+
+				if (type == ENT_HOSTILE ||
+				    type == ENT_ANGRY) {
+					strcpy(entity[num].holding[1].name, "gold");
+					entity[num].holding[1].map[0][0] = rand()%3;
+					strcpy(entity[num].holding[2].name, "ammo");
+					entity[num].holding[2].map[0][0] = rand()%2;
+				}
+				if (type == ENT_PEACEFUL) {
+					strcpy(entity[num].holding[1].name, "beef");
+					entity[num].holding[1].map[0][0] = rand()%2;
+				}
 
 				/* TODO: Break into function and add smart
 				 * intergration of is_floor function */

@@ -116,7 +116,12 @@ hostile_ai(Ent *e, int xNew, int yNew, bool topos, int speed) {
 			rand_ai(e, speed);
 	} else if (!e->isdead) {
 		e->isdead = true;
-		add_item(&item[query_item(e->drop)], e->x, e->y);
+		for (int i = 0; i < MAX_HOLDING; i++)
+			while (e->holding[i].map[0][0] > 0) {
+				add_item(&item[query_item(e->holding[i].name)],
+					 e->x, e->y);
+				e->holding[i].map[0][0]--;
+			}
 	}
 }
 
@@ -139,7 +144,12 @@ angry_ai(Ent *e, int xNew, int yNew, int speed) {
 
 	} else if (!e->isdead) {
 		e->isdead = true;
-		add_item(&item[query_item(e->drop)], e->x, e->y);
+		for (int i = 0; i < MAX_HOLDING; i++)
+			while (e->holding[i].map[0][0] > 0) {
+				add_item(&item[query_item(e->holding[i].name)],
+					 e->x, e->y);
+				e->holding[i].map[0][0]--;
+			}
 	}
 }
 
@@ -160,7 +170,12 @@ rand_ai(Ent *e, int speed) {
 
 	} else if (!e->isdead) {
 		e->isdead = true;
-		add_item(&item[query_item(e->drop)], e->x, e->y);
+		for (int i = 0; i < MAX_HOLDING; i++)
+			while (e->holding[i].map[0][0] > 0) {
+				add_item(&item[query_item(e->holding[i].name)],
+					 e->x, e->y);
+				e->holding[i].map[0][0]--;
+			}
 	}
 }
 
