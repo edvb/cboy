@@ -5,15 +5,15 @@
 
 static char worldMap[MAX_Y][MAX_X+1] = {
 "gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggXXXXXXXXXXXXXXggggg",
-"ggggXXXXXXXXXXXXggggggggggggggggg~~~~~~~~ggggggXXXXXXXXXXggggX............Xggggg",
-"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX........XggggX............Xggggg",
-"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX=======+XggggX............Xggggg",
-"ggggX..........Xggggggggggggggggg~~~~~~~~ggggggX..h.h.h.XggggXXXX+XXXXXXXXXggggg",
-"ggggXXXXXXXXX+XXgggggggggggggggg~~~~~~~~~ggggggXh.......Xgggg..............ggggg",
-"ggggggggggggggggggggggggggggggg~~~~~~~~~gggggggXo.......XggggX............Xggggg",
-"ggggggggggggggggggggggggggggggg~~~~~~~~ggggggggXh.....hoXggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggXXX+XXXXXXggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggg~~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
+"ggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
 "ggggggggggggggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
@@ -32,26 +32,57 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 
 static int maprand[MAX_Y][MAX_X+1];
 
-static void init_wells(int count) {
-	int len = 3, height = 3;
-	const char well[3][3] = {
-	" # ",
-	"#~#",
-	" # ",
-	};
+static const char well[3][MAX_X+1] = {
+" # ",
+"#~#",
+" # ",
+};
+
+static const char saloon[8][MAX_X+1] = {
+"XXXXXXXXXX",
+"X........X",
+"X=======+X",
+"X..h.h.h.X",
+"Xh.......X",
+"Xo.......X",
+"Xh.....hoX",
+"XXX+XXXXXX",
+};
+
+static const char jail[7][MAX_X+1] = {
+"XXXXXXXXXXXX",
+"Xh..b....h.X",
+"X...b...===X",
+"Xbbbb......X",
+"X...b......X",
+"Xh..b......X",
+"XXXXXXXXX+XX",
+};
+
+static const char bank[5][MAX_X+1] = {
+"XXXXXXXXXXXXXX",
+"Xh......+...sX",
+"X.......=h..sX",
+"Xh......=h..sX",
+"XXXX+XXXXXXXXX",
+};
+
+static void
+init_building(bool if_random, int count,
+	      const char building[][MAX_X+1], int len, int height) {
 	int x_0, y_0;
 
-	if (rand() % 2 == 0)
+	if (if_random)
 		count += rand() % 2;
-	for (int num = 0; num <= count; num++) {
+	for (int num = 0; num < count; num++) {
 		do {
 			x_0 = rand() % MAX_X;
 			y_0 = rand() % MAX_Y;
-		} while (!is_floor_range(x_0, y_0, len+2, height+2));
+		} while (!is_floor_range(x_0-1, y_0-1, len+1, height+1));
 		for (int i = 0; i < len; i++)
 			for (int j = 0; j < height; j++)
-				if (well[j][i] != ' ')
-					set_map(i+x_0, j+y_0, well[j][i]);
+				if (building[j][i] != ' ')
+					set_map(i+x_0, j+y_0, building[j][i]);
 	}
 }
 
@@ -92,7 +123,10 @@ static void init_barrels(int count) {
  * should be a different char */
 void init_map(void) {
 	int num;
-	init_wells(0);
+	init_building(false, 1, saloon, 10, 8);
+	init_building(false, 1, jail,   12, 7);
+	init_building(false, 1, bank,   14, 5);
+	init_building(true,  1, well,   3,  3);
 	init_barrels(4);
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++) {
@@ -122,6 +156,8 @@ bool is_floor(int x, int y) {
 		case '+': return false;
 		case 'o': return false;
 		case '0': return false;
+		case 's': return false;
+		case 'b': return false;
 		default: return true;
 	}
 }
@@ -176,6 +212,10 @@ void draw_map(Ent e, int r) {
 				mvaddch(j, i, 'o' + BROWN);
 			else if (worldMap[j][i] == '0')
 				mvaddch(j, i, '0' + BROWN);
+			else if (worldMap[j][i] == 's')
+				mvaddch(j, i, '0' + GREY);
+			else if (worldMap[j][i] == 'b')
+				mvaddch(j, i, '=' + GREY);
 }
 
 /* draw_map: draw the map background (stuff that is below entities) */
