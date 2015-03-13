@@ -1,3 +1,3 @@
-bandit @(8): hp=8 damge=2 type=1 rarity=5 gold
-bandit @(6): hp=6 damge=2 type=2 rarity=5 gold
-cow c(6): hp=4 damge=0 type=3 rarity=10 beef
+bandit @(8): hp=8 damge=2 type=1 rarity=8 gold
+bandit @(6): hp=6 damge=4 type=2 rarity=10 gold
+cow c(6): hp=4 damge=0 type=3 rarity=20 beef

@@ -1,4 +1,4 @@
-gold $(4): type=0 stat=0 rarity=1
+gold $(4): type=0 stat=0 rarity=0
 ammo *(6): type=3 stat=4 rarity=5
 revolver )(6): type=4 stat=6 rarity=1
 knife /(6): type=2 stat=4 rarity=2

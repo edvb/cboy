@@ -113,7 +113,7 @@ player_use(Ent *e) {
 				else
 					dmg = e->holding[query_item("ammo")].stat - rand()%5;
 				fire_gun(e->direc, e->x, e->y,
-					 15, dmg);
+					 20, dmg);
 				e->holding[e->hold].stat--;
 				if (e->holding[e->hold].stat <= 0)
 					e->holding[e->hold].face = ')';

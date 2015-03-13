@@ -52,13 +52,11 @@ void init_item(int from, int to) {
 			for (int j = 0; j < MAX_Y; j++)
 				item[num].map[j][i] = 0;
 
-		if (rarity != 0)
+		if (rarity != 0) {
 			if (rand() % 2 == 0)
 				rarity += rand() % 3;
 			else
 				rarity -= rand() % 3;
-			if (rarity <= 0)
-				rarity = 1;
 			for (int x, y, i = 0; i < rarity; i++, itemqty++) {
 				do {
 					x = rand() % MAX_X;
@@ -66,6 +64,7 @@ void init_item(int from, int to) {
 				} while (!is_floor(x, y));
 				item[num].map[y][x]++;
 			}
+		}
 
 	}
 

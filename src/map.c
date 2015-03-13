@@ -2,117 +2,33 @@
 #include <stdlib.h>
 
 #include "cboy.h"
-
-static const char mapstart[MAX_Y][MAX_X+1] = {
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"#ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"###ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"######gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"###########ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"###############ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-"################gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
-};
-
-static int maprand[MAX_Y][MAX_X+1];
-static char worldMap[MAX_Y][MAX_X+1];
-
-static const char river[24][MAX_X+1] = {
-"     ~~~~~~~~            ",
-"     ~~~~~~~~            ",
-"      ~~~~~~~~           ",
-"      ~~~~~~~~           ",
-"      ~~~~~~~~           ",
-"      ~~~~~~~~           ",
-"     ~~~~~~~~~           ",
-"    ~~~~~~~~~            ",
-"    ~~~~~~~~             ",
-"   ~~~~~~~~~             ",
-"   ~~~~~~~~~             ",
-" XXXXXXXXXXX             ",
-"XX.........XX            ",
-".............            ",
-".XXXXXXXXXXX.            ",
-"XX~~~~~~~  XX            ",
-"  ~~~~~~~                ",
-"  ~~~~~~~        ~~      ",
-"  ~~~~~~~~      ~~~~~    ",
-"  ~~~~~~~~~~    ~~~~~~~  ",
-"   ~~~~~~~~~~~~~~~~~~~~  ",
-"   ~~~~~~~~  ~~~~~~~~~~~ ",
-"   ~~~~~~~~~      ~~~~~  ",
-"   ~~~~~~~~~             ",
-};
-
-static const char saloon[8][MAX_X+1] = {
-"XXXXXXXXXX",
-"X........X",
-"X=======+X",
-"X..h.h.h.X",
-"Xh.......X",
-"Xo.......X",
-"Xh.....hoX",
-"XXX+XXXXXX",
-};
-
-static const char jail[7][MAX_X+1] = {
-"XXXXXXXXXXXX",
-"Xh..b....h.X",
-"X...b...===X",
-"Xbbbb......X",
-"X...b......X",
-"Xh..b......X",
-"XXXXXXXXX+XX",
-};
-
-static const char bank[5][MAX_X+1] = {
-"XXXXXXXXXXXXXX",
-"Xh......+...sX",
-"X.......=h..sX",
-"Xh......=h..sX",
-"XXXX+XXXXXXXXX",
-};
-
-static const char well[3][MAX_X+1] = {
-" # ",
-"#~#",
-" # ",
-};
+#include "map.h"
 
 static void
 init_building(bool if_random, int count,
 	      const char building[][MAX_X+1], int len, int height) {
 	int x_0, y_0;
+	int tries;
 
 	if (if_random)
-		count += rand() % 2;
+		count += rand() % 4;
 	for (int num = 0; num < count; num++) {
 		if (height >= MAX_Y)
 			do {
 				x_0 = rand() % MAX_X;
 				y_0 = 0;
+				tries++;
+				if (tries > 10000)
+					return;
 			} while (x_0 < 17 || x_0+len > MAX_X);
 		else
 			do {
 				x_0 = rand() % MAX_X;
 				y_0 = rand() % MAX_Y;
-			} while (!is_floor_range(x_0-1, y_0-1, len+1, height+1));
+				tries++;
+				if (tries > 10000)
+					return;
+			} while (!is_floor_range(x_0-2, y_0-2, len+2, height+2));
 		for (int i = 0; i < len; i++)
 			for (int j = 0; j < height; j++)
 				if (building[j][i] != ' ')
@@ -120,7 +36,7 @@ init_building(bool if_random, int count,
 	}
 }
 
-static void init_barrels(int count) {
+static void init_barrels(int count, char face) {
 	int x_0, y_0;
 	int barrelqty;
 	int barrelpos;
@@ -134,20 +50,20 @@ static void init_barrels(int count) {
 			x_0 = rand() % MAX_X;
 			y_0 = rand() % MAX_Y;
 		} while (!is_floor_range(x_0-1, y_0-1, 3, 3));
-		set_map(x_0, y_0, '0');
+		set_map(x_0, y_0, face);
 
 		barrelqty = rand()%8;
 		for (int j = 0; j < barrelqty; j++) {
 			barrelpos = rand()%8;
 			switch (barrelpos) {
-			case 0: set_map(x_0+1, y_0, '0'); break;
-			case 1: set_map(x_0, y_0+1, '0'); break;
-			case 2: set_map(x_0+1, y_0+1, '0'); break;
-			case 3: set_map(x_0-1, y_0, '0'); break;
-			case 4: set_map(x_0, y_0-1, '0'); break;
-			case 5: set_map(x_0-1, y_0-1, '0'); break;
-			case 6: set_map(x_0+1, y_0-1, '0'); break;
-			case 7: set_map(x_0-1, y_0+1, '0'); break;
+			case 0: set_map(x_0+1, y_0, face); break;
+			case 1: set_map(x_0, y_0+1, face); break;
+			case 2: set_map(x_0+1, y_0+1, face); break;
+			case 3: set_map(x_0-1, y_0, face); break;
+			case 4: set_map(x_0, y_0-1, face); break;
+			case 5: set_map(x_0-1, y_0-1, face); break;
+			case 6: set_map(x_0+1, y_0-1, face); break;
+			case 7: set_map(x_0-1, y_0+1, face); break;
 			}
 		}
 	}
@@ -157,16 +73,22 @@ static void init_barrels(int count) {
  * should be a different char */
 void init_map(void) {
 	int num;
+	int rivernum = rand() % 2;
 	for (int i = 0; i < MAX_X; i++)
-		for (int j = 0; j < MAX_Y; j++) {
+		for (int j = 0; j < MAX_Y; j++)
 			worldMap[j][i] = mapstart[j][i];
-		}
-	init_building(false, 1, river,  24, 25);
+	switch (rivernum) {
+		case 0: init_building(false, 1, river0,  24, 25); break;
+		case 1: init_building(false, 1, river1,  24, 25); break;
+	}
 	init_building(false, 1, saloon, 10, 8);
 	init_building(false, 1, jail,   12, 7);
 	init_building(false, 1, bank,   14, 5);
+	init_building(true,  3, house,   9, 6);
+	init_building(true,  0, grave,  14, 6);
 	init_building(true,  1, well,   3,  3);
-	init_barrels(4);
+	init_barrels(4, '0');
+	init_barrels(7, '#');
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++) {
 			if ((num = rand() % 50) == 0)
@@ -197,6 +119,7 @@ bool is_floor(int x, int y) {
 		case '0': return false;
 		case 's': return false;
 		case 'b': return false;
+		case 'y': return false;
 		default: return true;
 	}
 }
@@ -240,7 +163,7 @@ void draw_map(Ent e, int r) {
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++)
 			if (worldMap[j][i] == '#')
-				mvaddch(j, i, '#' + COLOR_PAIR(12));
+				mvaddch(j, i, '#' + COLOR_PAIR(14));
 			else if (worldMap[j][i] == 'X')
 				mvaddch(j, i, 'X' + COLOR_PAIR(13));
 			else if (worldMap[j][i] == '=')
@@ -255,6 +178,8 @@ void draw_map(Ent e, int r) {
 				mvaddch(j, i, '0' + GREY);
 			else if (worldMap[j][i] == 'b')
 				mvaddch(j, i, '=' + GREY);
+			else if (worldMap[j][i] == 'y')
+				mvaddch(j, i, '+' + GREY);
 }
 
 /* draw_map: draw the map background (stuff that is below entities) */
@@ -270,11 +195,11 @@ void draw_map_floor(Ent e, int r) {
 					? ACS_BULLET : ':');
 				attroff(COLOR_PAIR(5));
 			} else if (worldMap[j][i] == 'g') {
-				attron(YELLOW);
+				attron(COLOR_PAIR(14));
 				mvaddch(j, i,
 					(maprand[j][i] == 0)
 					? ACS_BULLET : ':');
-				attroff(YELLOW);
+				attroff(COLOR_PAIR(14));
 			} else if (worldMap[j][i] == '~')
 				mvaddch(j, i, '~' + WATER);
 			else if (worldMap[j][i] == 'h')

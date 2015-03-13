@@ -70,6 +70,7 @@ int main(int argc, char *argv[]) {
 	init_color(10,   0,  200,  400); /* dark blue */
 	init_color(11, 200,  200,  200); /* dark grey */
 	init_color(12, 150,  120,   50); /* dark brown */
+	init_color(13, 550,  450,    0); /* dark yellow */
 
 	init_pair( 1,  1,  0); /* red */
 	init_pair( 2,  2,  0); /* green */
@@ -83,6 +84,7 @@ int main(int argc, char *argv[]) {
 	init_pair(11, 11,  0); /* dark grey */
 	init_pair(12,  6, 11); /* dark grey bg */
 	init_pair(13,  5, 12); /* dark brown bg */
+	init_pair(14, 13,  0); /* dark brown bg */
 
 	int c;
 
@@ -96,6 +98,7 @@ int main(int argc, char *argv[]) {
 
 	srand(time(NULL));
 
+	init_map();
 	init_map();
 	init_entity();
 	init_player(0, 0);
