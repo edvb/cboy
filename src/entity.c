@@ -5,8 +5,24 @@
 
 /* can_step: determine if entity can move to a new space */
 bool can_step(Ent *e, int x, int y) {
-	if (x < 0 || x >= MAX_X || y < 0 || y >= MAX_Y)
+	if (x < 0 || x >= MAX_X || y < 0 || y >= MAX_Y) {
+		if (e->type == ENT_PLAYER) {
+			init_map();
+			init_entity();
+			init_item(0,6);
+			for (int i = 0; i <= playerqty; i++)
+				draw_map_floor(player[i], 10);
+			if (x < 0)
+				e->x = MAX_X-1;
+			if (x >= MAX_X)
+				e->x = 0;
+			if (y < 0)
+				e->y = MAX_Y-1;
+			if (y >= MAX_Y)
+				e->y = 0;
+		}
 		return false;
+	}
 
 	for (int i = 0; i <= entqty; i++)
 		/* TODO: Check if holding item */

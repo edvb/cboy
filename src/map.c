@@ -3,7 +3,7 @@
 
 #include "cboy.h"
 
-static char worldMap[MAX_Y][MAX_X+1] = {
+static const char mapstart[MAX_Y][MAX_X+1] = {
 "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
 "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
@@ -31,6 +31,7 @@ static char worldMap[MAX_Y][MAX_X+1] = {
 };
 
 static int maprand[MAX_Y][MAX_X+1];
+static char worldMap[MAX_Y][MAX_X+1];
 
 static const char river[24][MAX_X+1] = {
 "     ~~~~~~~~            ",
@@ -156,7 +157,11 @@ static void init_barrels(int count) {
  * should be a different char */
 void init_map(void) {
 	int num;
-	init_building(false, 1, river, 24, 25);
+	for (int i = 0; i < MAX_X; i++)
+		for (int j = 0; j < MAX_Y; j++) {
+			worldMap[j][i] = mapstart[j][i];
+		}
+	init_building(false, 1, river,  24, 25);
 	init_building(false, 1, saloon, 10, 8);
 	init_building(false, 1, jail,   12, 7);
 	init_building(false, 1, bank,   14, 5);
