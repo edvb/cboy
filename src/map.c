@@ -4,38 +4,59 @@
 #include "cboy.h"
 
 static char worldMap[MAX_Y][MAX_X+1] = {
-"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggg~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggg~~~~~~~~~gggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggggg~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggXXXXXXXXXXXggggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggXX.........XXgggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggg.............gggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggg.XXXXXXXXXXX.gggggggggggggggggggggggggggggggggggggggg",
-"gggggggggggggggggggggggggggXX~~~~~~~ggXXgggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggg~~~~~~~gggggggggggggggggggggggggggggggggggggggggggg",
-"ggggggggggggggggggggggggggggg~~~~~~~gggggggg~~gggggggggggggggggggggggggggggggggg",
-"#gggggggggggggggggggggggggggg~~~~~~~~gggggg~~~~~gggggggggggggggggggggggggggggggg",
-"###gggggggggggggggggggggggggg~~~~~~~~~~gggg~~~~~~~gggggggggggggggggggggggggggggg",
-"######gggggggggggggggggggggggg~~~~~~~~~~~~~~~~~~~~gggggggggggggggggggggggggggggg",
-"###########ggggggggggggggggggg~~~~~~~~gg~~~~~~~~~~~ggggggggggggggggggggggggggggg",
-"###############ggggggggggggggg~~~~~~~~~gggggg~~~~~gggggggggggggggggggggggggggggg",
-"################gggggggggggggg~~~~~~~~~ggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"#ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"###ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"######gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"###########ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"###############ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+"################gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
 };
 
 static int maprand[MAX_Y][MAX_X+1];
 
-static const char well[3][MAX_X+1] = {
-" # ",
-"#~#",
-" # ",
+static const char river[24][MAX_X+1] = {
+"     ~~~~~~~~            ",
+"     ~~~~~~~~            ",
+"      ~~~~~~~~           ",
+"      ~~~~~~~~           ",
+"      ~~~~~~~~           ",
+"      ~~~~~~~~           ",
+"     ~~~~~~~~~           ",
+"    ~~~~~~~~~            ",
+"    ~~~~~~~~             ",
+"   ~~~~~~~~~             ",
+"   ~~~~~~~~~             ",
+" XXXXXXXXXXX             ",
+"XX.........XX            ",
+".............            ",
+".XXXXXXXXXXX.            ",
+"XX~~~~~~~  XX            ",
+"  ~~~~~~~                ",
+"  ~~~~~~~        ~~      ",
+"  ~~~~~~~~      ~~~~~    ",
+"  ~~~~~~~~~~    ~~~~~~~  ",
+"   ~~~~~~~~~~~~~~~~~~~~  ",
+"   ~~~~~~~~  ~~~~~~~~~~~ ",
+"   ~~~~~~~~~      ~~~~~  ",
+"   ~~~~~~~~~             ",
 };
 
 static const char saloon[8][MAX_X+1] = {
@@ -67,6 +88,12 @@ static const char bank[5][MAX_X+1] = {
 "XXXX+XXXXXXXXX",
 };
 
+static const char well[3][MAX_X+1] = {
+" # ",
+"#~#",
+" # ",
+};
+
 static void
 init_building(bool if_random, int count,
 	      const char building[][MAX_X+1], int len, int height) {
@@ -75,10 +102,16 @@ init_building(bool if_random, int count,
 	if (if_random)
 		count += rand() % 2;
 	for (int num = 0; num < count; num++) {
-		do {
-			x_0 = rand() % MAX_X;
-			y_0 = rand() % MAX_Y;
-		} while (!is_floor_range(x_0-1, y_0-1, len+1, height+1));
+		if (height >= MAX_Y)
+			do {
+				x_0 = rand() % MAX_X;
+				y_0 = 0;
+			} while (x_0 < 17 || x_0+len > MAX_X);
+		else
+			do {
+				x_0 = rand() % MAX_X;
+				y_0 = rand() % MAX_Y;
+			} while (!is_floor_range(x_0-1, y_0-1, len+1, height+1));
 		for (int i = 0; i < len; i++)
 			for (int j = 0; j < height; j++)
 				if (building[j][i] != ' ')
@@ -123,6 +156,7 @@ static void init_barrels(int count) {
  * should be a different char */
 void init_map(void) {
 	int num;
+	init_building(false, 1, river, 24, 25);
 	init_building(false, 1, saloon, 10, 8);
 	init_building(false, 1, jail,   12, 7);
 	init_building(false, 1, bank,   14, 5);
