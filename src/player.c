@@ -127,28 +127,20 @@ player_run(int c, Ent *e) {
 	if (isalive(e->hp)) {
 
 		switch (c) {
-			case CBOY_LEFT:
-				move_entity(e, -1,  0);
-				e->direc = LEFT;
-				break;
-			case CBOY_DOWN:
-				move_entity(e,  0,  1);
-				e->direc = DOWN;
-				break;
-			case CBOY_UP:
-				move_entity(e,  0, -1);
-				e->direc = UP;
-				break;
-			case CBOY_RIGHT:
-				move_entity(e,  1,  0);
-				e->direc = RIGHT;
-				break;
-			case CBOY_STAND: break;
-			case CBOY_DROP: player_drop(e); break;
-			case CBOY_GET: player_get(e); break;
-			case CBOY_LOAD: load_gun(e); break;
-			case CBOY_OPEN: toggle_door(e->x, e->y); break;
-			case CBOY_USE: player_use(e); break;
+			case CBOY_LEFT:      move_entity(e, -1,  0);  e->direc = LEFT; break;
+			case CBOY_DOWN:      move_entity(e,  0,  1);  e->direc = DOWN; break;
+			case CBOY_UP:        move_entity(e,  0, -1);  e->direc = UP; break;
+			case CBOY_RIGHT:     move_entity(e,  1,  0);  e->direc = RIGHT; break;
+			case CBOY_LEFTDOWN:  move_entity(e, -1,  1);  e->direc = LEFTDOWN; break;
+			case CBOY_LEFTUP:    move_entity(e, -1,  -1); e->direc = LEFTUP; break;
+			case CBOY_RIGHTDOWN: move_entity(e,  1,  1);  e->direc = RIGHTDOWN; break;
+			case CBOY_RIGHTUP:   move_entity(e,  1,  -1); e->direc = RIGHTUP; break;
+			case CBOY_STAND:     break;
+			case CBOY_DROP:      player_drop(e); break;
+			case CBOY_GET:       player_get(e); break;
+			case CBOY_LOAD:      load_gun(e); break;
+			case CBOY_OPEN:      toggle_door(e->x, e->y); break;
+			case CBOY_USE:       player_use(e); break;
 		}
 
 		if (e->hp > e->maxhp)

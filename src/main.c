@@ -132,17 +132,17 @@ int main(int argc, char *argv[]) {
 		for (int i = 0; i <= playerqty; i++) {
 			for (int j = 0; j <= itemqty; j++)
 				draw_item(item[j], player[i], 10);
-			for (int j = 0; j <= entqty; j++)
-				draw_ent(entity[j], player[i], 10);
 		}
 		for (int i = 0; i <= playerqty; i++) {
 			draw_ent(player[i], player[i], 10);
+			for (int j = 0; j <= entqty; j++)
+				draw_ent(entity[j], player[i], 10);
 			draw_map(player[i], 10);
 		}
 
 		c = getch();
 
-	} while (c != 'q');
+	} while (c != 27);
 
 	endwin();
 	printf("GAME OVER\n");
