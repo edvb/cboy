@@ -48,6 +48,54 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 			mvaddch(y_0, i, 'x' + RED);
 		}
 		break;
+	case LEFTDOWN:
+		for (int i = x_0, j = y_0;
+		     i > x_0-range && j < y_0+range;
+		     i--, j++) {
+			for (int num = 0; num <= entqty; num++)
+				if (entity[num].x == i && entity[num].y == j)
+					entity[num].hp -= dmg;
+			if (!is_floor(i, j))
+				return;
+			mvaddch(j, i, 'x' + RED);
+		}
+		break;
+	case LEFTUP:
+		for (int i = x_0, j = y_0;
+		     i > x_0-range && j > y_0-range;
+		     i--, j--) {
+			for (int num = 0; num <= entqty; num++)
+				if (entity[num].x == i && entity[num].y == j)
+					entity[num].hp -= dmg;
+			if (!is_floor(i, j))
+				return;
+			mvaddch(j, i, 'x' + RED);
+		}
+		break;
+	case RIGHTDOWN:
+		for (int i = x_0, j = y_0;
+		     i < x_0+range && j > y_0-range; 
+		     i++, j++) {
+			for (int num = 0; num <= entqty; num++)
+				if (entity[num].x == i && entity[num].y == j)
+					entity[num].hp -= dmg;
+			if (!is_floor(i, j))
+				return;
+			mvaddch(j, i, 'x' + RED);
+		}
+		break;
+	case RIGHTUP:
+		for (int i = x_0, j = y_0;
+		     i < x_0+range && j > y_0-range;
+		     i++, j--) {
+			for (int num = 0; num <= entqty; num++)
+				if (entity[num].x == i && entity[num].y == j)
+					entity[num].hp -= dmg;
+			if (!is_floor(i, j))
+				return;
+			mvaddch(j, i, 'x' + RED);
+		}
+		break;
 	}
 }
 
