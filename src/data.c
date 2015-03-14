@@ -114,12 +114,16 @@ void init_entity(void) {
 				break;
 		}
 
+		if (damage != 0)
+			damage += (rand() % 2) + mapnum;
+		maxhp += (rand() % 2) + mapnum;
+
 		if (rarity != 0) {
 			if (rand() % 2 == 0)
 				rarity += rand() % 3;
 			else
 				rarity -= rand() % 3;
-			for (int num = entqty; num < rarity; num++, entqty++) {
+			for (int num = 0; num < rarity; num++, entqty++) {
 				entity[num].name = malloc(MAX_NAME * sizeof(char));
 				strcpy(entity[num].name, name);
 				entity[num].drop = malloc(MAX_NAME * sizeof(char));

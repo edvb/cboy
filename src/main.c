@@ -98,8 +98,10 @@ int main(int argc, char *argv[]) {
 
 	srand(time(NULL));
 
+	mapnum = 0;
 	init_map();
 	init_map();
+	mapnum = 0;
 	init_entity();
 	init_player(0, 0);
 	player[0].bary = 0;

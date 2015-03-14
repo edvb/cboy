@@ -96,6 +96,7 @@ void init_map(void) {
 			else
 				maprand[j][i] = 0;
 		}
+	mapnum++;
 }
 
 /* get_map: get character of map at x and y position */
