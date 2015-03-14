@@ -82,6 +82,15 @@ const char river1[24][MAX_X+1] = {
 "     ~~~~~~~~~           ",
 };
 
+const char lake0[24][MAX_X+1] = {
+" ~~~~~    ",
+"~~~~~~~   ",
+"~~~~~~~~~ ",
+"~~~~~~~~~~",
+" ~~~~~~~~~",
+"   ~~~~~  ",
+};
+
 const char saloon[8][MAX_X+1] = {
 "XXXXXXXXXX",
 "X........X",

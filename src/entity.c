@@ -7,6 +7,7 @@
 bool can_step(Ent *e, int x, int y) {
 	if (x < 0 || x >= MAX_X || y < 0 || y >= MAX_Y) {
 		if (e->type == ENT_PLAYER) {
+			behostile = false;
 			init_map();
 			init_entity();
 			init_item(0,6);
@@ -25,12 +26,12 @@ bool can_step(Ent *e, int x, int y) {
 	}
 
 	for (int i = 0; i <= entqty; i++)
-		/* TODO: Check if holding item */
 		if (isalive(entity[i].hp) &&
 		    entity[i].x == x && entity[i].y == y) {
-			/* TODO: Improve checking if entity should attack or not */
-			if (e->type == ENT_PLAYER)
+			if (e->type == ENT_PLAYER) {
 				attack(e, &entity[i]);
+				behostile = true;
+			}
 			return false;
 		}
 	for (int i = 0; i <= playerqty; i++)

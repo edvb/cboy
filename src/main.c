@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
 			case ENT_PLAYER: break;
 			case ENT_HOSTILE:
 				hostile_ai(&entity[i], player[0].x, player[0].y,
-					   be_hostile(player[0]), 8);
+					   behostile, 8);
 				break;
 			case ENT_ANGRY:
 				angry_ai(&entity[i], player[0].x, player[0].y, 8);
@@ -128,12 +128,9 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 
-		/* TODO: Add player sight */
 		for (int i = 0; i <= playerqty; i++) {
-			for (int j = 0; j <= itemqty; j++)
+			for (int j = itemqty; j >= 0; j--)
 				draw_item(item[j], player[i], 10);
-		}
-		for (int i = 0; i <= playerqty; i++) {
 			draw_ent(player[i], player[i], 10);
 			for (int j = 0; j <= entqty; j++)
 				draw_ent(entity[j], player[i], 10);

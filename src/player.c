@@ -159,7 +159,7 @@ player_use(Ent *e) {
 				if (rand()%2 == 0)
 					dmg = e->holding[query_item("ammo")].stat + rand()%3;
 				else
-					dmg = e->holding[query_item("ammo")].stat - rand()%5;
+					dmg = e->holding[query_item("ammo")].stat - rand()%3;
 				fire_gun(e->direc, e->x, e->y,
 					 20, dmg);
 				e->holding[e->hold].stat--;
@@ -183,6 +183,14 @@ player_run(int c, Ent *e) {
 			case CBOY_LEFTUP:    move_entity(e, -1,  -1); e->direc = LEFTUP; break;
 			case CBOY_RIGHTDOWN: move_entity(e,  1,  1);  e->direc = RIGHTDOWN; break;
 			case CBOY_RIGHTUP:   move_entity(e,  1,  -1); e->direc = RIGHTUP; break;
+			case CBOY_LLEFT:     e->direc = LEFT; break;
+			case CBOY_LDOWN:     e->direc = DOWN; break;
+			case CBOY_LUP:       e->direc = UP; break;
+			case CBOY_LRIGHT:    e->direc = RIGHT; break;
+			case CBOY_LLEFTDOWN: e->direc = LEFTDOWN; break;
+			case CBOY_LLEFTUP:   e->direc = LEFTUP; break;
+			case CBOY_LRIGHTDOWN:e->direc = RIGHTDOWN; break;
+			case CBOY_LRIGHTUP:  e->direc = RIGHTUP; break;
 			case CBOY_STAND:     break;
 			case CBOY_DROP:      player_drop(e); break;
 			case CBOY_GET:       player_get(e); break;

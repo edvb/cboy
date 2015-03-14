@@ -11,7 +11,7 @@ init_building(bool if_random, int count,
 	int tries;
 
 	if (if_random)
-		count += rand() % 4;
+		count += rand() % 2;
 	for (int num = 0; num < count; num++) {
 		if (height >= MAX_Y)
 			do {
@@ -84,11 +84,11 @@ void init_map(void) {
 	init_building(false, 1, saloon, 10, 8);
 	init_building(false, 1, jail,   12, 7);
 	init_building(false, 1, bank,   14, 5);
-	init_building(true,  3, house,   9, 6);
+	init_building(true,  2, house,   9, 6);
 	init_building(true,  0, grave,  14, 6);
+	init_building(true,  0, lake0,  10, 6);
 	init_building(true,  1, well,   3,  3);
-	init_barrels(4, '0');
-	init_barrels(7, '#');
+	init_barrels(6, '0');
 	for (int i = 0; i < MAX_X; i++)
 		for (int j = 0; j < MAX_Y; j++) {
 			if ((num = rand() % 50) == 0)

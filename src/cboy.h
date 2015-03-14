@@ -132,6 +132,8 @@ void init_player(int from, int to);
 int maxx;
 int maxy;
 
+bool behostile;
+
 int itemqty;
 int playerqty;
 int entqty;
