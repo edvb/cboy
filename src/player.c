@@ -11,8 +11,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 	case LEFT:
 		for (int i = x_0; i > x_0-range; i--) {
 			for (int j = 0; j <= entqty; j++)
-				if (entity[j].x == i && entity[j].y == y_0)
+				if (entity[j].x == i && entity[j].y == y_0) {
 					entity[j].hp -= dmg;
+					if (entity[j].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, y_0))
 				return;
 			mvaddch(y_0, i, 'x' + RED);
@@ -21,8 +24,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 	case DOWN:
 		for (int i = y_0; i < y_0+range; i++) {
 			for (int j = 0; j <= entqty; j++)
-				if (entity[j].x == x_0 && entity[j].y == i)
+				if (entity[j].x == x_0 && entity[j].y == i) {
 					entity[j].hp -= dmg;
+					if (entity[j].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(x_0, i))
 				return;
 			mvaddch(i, x_0, 'x' + RED);
@@ -31,8 +37,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 	case UP:
 		for (int i = y_0; i > y_0-range; i--) {
 			for (int j = 0; j <= entqty; j++)
-				if (entity[j].x == x_0 && entity[j].y == i)
+				if (entity[j].x == x_0 && entity[j].y == i) {
 					entity[j].hp -= dmg;
+					if (entity[j].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(x_0, i))
 				return;
 			mvaddch(i, x_0, 'x' + RED);
@@ -41,8 +50,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 	case RIGHT:
 		for (int i = x_0; i < x_0+range; i++) {
 			for (int j = 0; j <= entqty; j++)
-				if (entity[j].x == i && entity[j].y == y_0)
+				if (entity[j].x == i && entity[j].y == y_0) {
 					entity[j].hp -= dmg;
+					if (entity[j].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, y_0))
 				return;
 			mvaddch(y_0, i, 'x' + RED);
@@ -53,8 +65,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 		     i > x_0-range && j < y_0+range;
 		     i--, j++) {
 			for (int num = 0; num <= entqty; num++)
-				if (entity[num].x == i && entity[num].y == j)
+				if (entity[num].x == i && entity[num].y == j) {
 					entity[num].hp -= dmg;
+					if (entity[num].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, j))
 				return;
 			mvaddch(j, i, 'x' + RED);
@@ -65,8 +80,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 		     i > x_0-range && j > y_0-range;
 		     i--, j--) {
 			for (int num = 0; num <= entqty; num++)
-				if (entity[num].x == i && entity[num].y == j)
+				if (entity[num].x == i && entity[num].y == j) {
 					entity[num].hp -= dmg;
+					if (entity[num].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, j))
 				return;
 			mvaddch(j, i, 'x' + RED);
@@ -77,8 +95,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 		     i < x_0+range && j > y_0-range; 
 		     i++, j++) {
 			for (int num = 0; num <= entqty; num++)
-				if (entity[num].x == i && entity[num].y == j)
+				if (entity[num].x == i && entity[num].y == j) {
 					entity[num].hp -= dmg;
+					if (entity[num].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, j))
 				return;
 			mvaddch(j, i, 'x' + RED);
@@ -89,8 +110,11 @@ fire_gun(DIREC direc, int x_0, int y_0, int range, int dmg) {
 		     i < x_0+range && j > y_0-range;
 		     i++, j--) {
 			for (int num = 0; num <= entqty; num++)
-				if (entity[num].x == i && entity[num].y == j)
+				if (entity[num].x == i && entity[num].y == j) {
 					entity[num].hp -= dmg;
+					if (entity[num].type != ENT_ANGRY)
+						behostile = true;
+				}
 			if (!is_floor(i, j))
 				return;
 			mvaddch(j, i, 'x' + RED);
@@ -136,7 +160,8 @@ player_get(Ent *e) {
 					clear_item(&item[i], e->x, e->y);
 					return;
 				}
-	e->hold++;
+	while (e->holding[++e->hold].face == ' ' && e->hold != 0)
+		;
 	if (e->hold == MAX_HOLDING)
 		e->hold = 0;
 }

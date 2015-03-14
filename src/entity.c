@@ -30,7 +30,8 @@ bool can_step(Ent *e, int x, int y) {
 		    entity[i].x == x && entity[i].y == y) {
 			if (e->type == ENT_PLAYER) {
 				attack(e, &entity[i]);
-				behostile = true;
+				if (entity[i].type != ENT_ANGRY)
+					behostile = true;
 			}
 			return false;
 		}
