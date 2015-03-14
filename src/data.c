@@ -61,7 +61,7 @@ void init_item(int from, int to) {
 				do {
 					x = rand() % MAX_X;
 					y = rand() % MAX_Y;
-				} while (!is_floor(x, y));
+				} while (get_map(x, y) != '.');
 				item[num].map[y][x]++;
 			}
 		}

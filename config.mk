@@ -1,5 +1,5 @@
 # cboy version number
-VERSION = v0.5
+VERSION = v1.0
 
 ### Change the varibles below for your system
 
