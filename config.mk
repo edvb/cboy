@@ -16,4 +16,4 @@ CFLAGS = -std=c11 -Wall ${INCS} -DVERSION=\"$(VERSION)\"
 LDFLAGS = ${LIBS}
 
 # compiler and linker
-CC = gcc-4.7
+CC = gcc

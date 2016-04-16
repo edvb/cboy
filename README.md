@@ -6,7 +6,7 @@ a job to kill the corrupt townspeople in the area
 Cboy should run on any Unix based OS (Linux, BSD, Mac) as long as ncurses is 
 installed, which is default on most systems. To compile the program type `make`
 into a terminal. To run type `./cboy` in the same directory. If you have any
-promblems with compiling or running feel free to contact me at: edvb54@gmail.com
+problems with compiling or running feel free to contact me at: edvb54@gmail.com
 
 ## Keys
 
